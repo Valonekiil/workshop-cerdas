@@ -1,17 +1,169 @@
-[gd_scene load_steps=7 format=3 uid="uid://dq0gdss5mo55y"]
+[gd_scene load_steps=13 format=3 uid="uid://dq0gdss5mo55y"]
 
 [ext_resource type="Script" uid="uid://qcwctk5jm4f7" path="res://chara.gd" id="1_fj7yv"]
 [ext_resource type="Texture2D" uid="uid://dm48ocos8kpy7" path="res://icon.svg" id="2_tlwt5"]
+[ext_resource type="Texture2D" uid="uid://d3pxj2lpfhlf5" path="res://Frezer.png" id="3_036b0"]
 [ext_resource type="Script" uid="uid://go1kfbjsjutv" path="res://npc_follow.gd" id="3_tlwt5"]
+[ext_resource type="Texture2D" uid="uid://bniuxn21ekrr1" path="res://tilemap.png" id="5_036b0"]
+
+[sub_resource type="SkeletonModificationStack2D" id="SkeletonModificationStack2D_dwbse"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_aqk2v"]
-size = Vector2(129, 128)
+size = Vector2(116, 112)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_036b0"]
 radius = 440.89
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_dwbse"]
+radius = 229.445
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tlwt5"]
 size = Vector2(642, 64)
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_pkg7o"]
+texture = ExtResource("5_036b0")
+separation = Vector2i(1, 1)
+0:2/0 = 0
+0:0/0 = 0
+0:1/0 = 0
+1:0/0 = 0
+1:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(3.99512, 8, 3.93042, 3.93042, 4.93325, 4.05982, 4.9656, 3.02465, 8, 2.9276, 8, 5.90372, 6.00077, 6.09782, 6.03312, 8)
+2:1/0 = 0
+2:2/0 = 0
+2:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, 0.94559, 8, 0.94559, 8, -4.89988, 1.97714, -5.12911, 1.97714, -6.16067, -5.0145, -6.04605, -5.0145, -5.0718, -8, -5.18642)
+3:2/0 = 0
+3:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-3.86832, -8, -3.86832, 0.20058, -4.95719, 0.143271, -5.0145, 1.06021, -8, 0.888282, -8, -5.12911, -6.10336, -4.95719, -6.04605, -8)
+3:1/0 = 0
+3:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-5.98874, -8, -5.93143, 8, -4.04025, 8, -3.98294, -8)
+3:0/0 = 0
+3:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, 3.02465, -3.99512, 3.08935, -4.02747, 8, -8, 8)
+2:0/0 = 0
+2:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, 2.95139, -5.12911, 3.0087, -5.12911, 1.97714, 1.80522, 2.09176, 1.86253, 2.83677, 8, 3.14753, 8, 8, -8, 8)
+1:1/0 = 0
+1:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(3.96277, -8, 3.99512, 8, 5.93607, 8, 6.00077, -8)
+1:2/0 = 0
+1:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(4.04025, -8, 4.04025, 0.0286541, 4.93325, 0.080873, 4.99795, 1.05135, 8, 1.0029, 8, -5.0145, 5.93143, -5.0145, 5.93143, -8)
+1:3/0 = 0
+1:4/0 = 0
+2:4/0 = 0
+2:3/0 = 0
+4:1/0 = 0
+4:2/0 = 0
+5:2/0 = 0
+6:2/0 = 0
+7:2/0 = 0
+7:1/0 = 0
+8:1/0 = 0
+9:0/0 = 0
+8:0/0 = 0
+7:0/0 = 0
+6:0/0 = 0
+5:0/0 = 0
+4:0/0 = 0
+6:1/0 = 0
+4:3/0 = 0
+3:3/0 = 0
+4:4/0 = 0
+5:4/0 = 0
+6:4/0 = 0
+4:5/0 = 0
+1:5/0 = 0
+2:5/0 = 0
+3:5/0 = 0
+7:4/0 = 0
+8:3/0 = 0
+8:4/0 = 0
+8:5/0 = 0
+8:6/0 = 0
+9:5/0 = 0
+10:4/0 = 0
+10:3/0 = 0
+11:2/0 = 0
+11:1/0 = 0
+10:1/0 = 0
+9:1/0 = 0
+6:3/0 = 0
+5:3/0 = 0
+3:4/0 = 0
+2:6/0 = 0
+2:7/0 = 0
+1:8/0 = 0
+1:7/0 = 0
+1:6/0 = 0
+1:9/0 = 0
+2:9/0 = 0
+2:10/0 = 0
+3:9/0 = 0
+3:10/0 = 0
+4:10/0 = 0
+5:10/0 = 0
+6:10/0 = 0
+6:9/0 = 0
+7:9/0 = 0
+8:9/0 = 0
+9:9/0 = 0
+5:9/0 = 0
+7:8/0 = 0
+8:8/0 = 0
+8:7/0 = 0
+7:7/0 = 0
+6:7/0 = 0
+5:7/0 = 0
+4:7/0 = 0
+3:7/0 = 0
+2:8/0 = 0
+0:8/0 = 0
+0:7/0 = 0
+0:6/0 = 0
+0:5/0 = 0
+1:10/0 = 0
+0:10/0 = 0
+0:9/0 = 0
+3:8/0 = 0
+4:6/0 = 0
+5:6/0 = 0
+6:6/0 = 0
+7:6/0 = 0
+9:6/0 = 0
+10:6/0 = 0
+11:6/0 = 0
+11:5/0 = 0
+9:7/0 = 0
+9:8/0 = 0
+10:8/0 = 0
+6:8/0 = 0
+5:8/0 = 0
+4:8/0 = 0
+4:9/0 = 0
+7:10/0 = 0
+8:10/0 = 0
+9:10/0 = 0
+10:10/0 = 0
+11:10/0 = 0
+11:9/0 = 0
+11:8/0 = 0
+11:7/0 = 0
+11:4/0 = 0
+11:3/0 = 0
+10:5/0 = 0
+10:2/0 = 0
+9:4/0 = 0
+9:3/0 = 0
+9:2/0 = 0
+11:0/0 = 0
+10:0/0 = 0
+5:5/0 = 0
+7:3/0 = 0
+3:6/0 = 0
+7:5/0 = 0
+6:5/0 = 0
+10:7/0 = 0
+0:4/0 = 0
+0:3/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_gbfbk"]
+physics_layer_0/collision_layer = 1
+sources/0 = SubResource("TileSetAtlasSource_pkg7o")
 
 [node name="World" type="Node2D"]
 
@@ -19,16 +171,34 @@ size = Vector2(642, 64)
 position = Vector2(212, 283)
 script = ExtResource("1_fj7yv")
 
+[node name="Skeleton2D" type="Skeleton2D" parent="chara"]
+position = Vector2(20, 35)
+modification_stack = SubResource("SkeletonModificationStack2D_dwbse")
+
+[node name="Bone2D" type="Bone2D" parent="chara/Skeleton2D"]
+
+[node name="Frezer" type="Sprite2D" parent="chara"]
+texture = ExtResource("3_036b0")
+
 [node name="Icon" type="Sprite2D" parent="chara"]
+visible = false
 texture = ExtResource("2_tlwt5")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="chara"]
-position = Vector2(0.5, 0)
+position = Vector2(-2, 4)
 shape = SubResource("RectangleShape2D_aqk2v")
 
 [node name="Npc" type="CharacterBody2D" parent="."]
 position = Vector2(937, 535)
 script = ExtResource("3_tlwt5")
+
+[node name="Label" type="Label" parent="Npc"]
+offset_left = -34.0
+offset_top = -103.0
+offset_right = 34.0
+offset_bottom = -68.0
+theme_override_font_sizes/font_size = 25
+text = "Mode"
 
 [node name="Icon" type="Sprite2D" parent="Npc"]
 modulate = Color(1, 0, 0, 1)
@@ -44,6 +214,11 @@ shape = SubResource("RectangleShape2D_aqk2v")
 shape = SubResource("CircleShape2D_036b0")
 
 [node name="RayCast2D" type="RayCast2D" parent="Npc"]
+
+[node name="Attack" type="Area2D" parent="Npc"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Npc/Attack"]
+shape = SubResource("CircleShape2D_dwbse")
 
 [node name="Tembok cina" type="StaticBody2D" parent="."]
 position = Vector2(849, 182)
@@ -73,5 +248,11 @@ shape = SubResource("RectangleShape2D_tlwt5")
 position = Vector2(804, 599)
 zoom = Vector2(0.5, 0.5)
 
+[node name="TileMap" type="TileMap" parent="."]
+tile_set = SubResource("TileSet_gbfbk")
+format = 2
+
 [connection signal="body_entered" from="Npc/Area2D" to="Npc" method="_on_area_2d_body_entered"]
 [connection signal="body_exited" from="Npc/Area2D" to="Npc" method="_on_area_2d_body_exited"]
+[connection signal="body_entered" from="Npc/Attack" to="Npc" method="_on_attack_body_entered"]
+[connection signal="body_exited" from="Npc/Attack" to="Npc" method="_on_attack_body_exited"]
