@@ -6,10 +6,8 @@ var target_found: bool
 @onready var raycast = $RayCast2D
 @onready var Attack_Range: Area2D = $Attack
 @onready var Current_State: Label = $Label
-<<<<<<< Updated upstream
-=======
 @onready var NavAgent: NavigationAgent2D = $NavigationAgent2D
->>>>>>> Stashed changes
+
 
 # State machine variables
 enum State {IDLE, MENGEJAR, MENYERANG}
