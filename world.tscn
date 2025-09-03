@@ -1,24 +1,197 @@
-[gd_scene load_steps=13 format=3 uid="uid://dq0gdss5mo55y"]
+[gd_scene load_steps=19 format=3 uid="uid://dq0gdss5mo55y"]
 
 [ext_resource type="Script" uid="uid://qcwctk5jm4f7" path="res://chara.gd" id="1_fj7yv"]
+[ext_resource type="Texture2D" uid="uid://do2vsf3ixw2ed" path="res://testile.png" id="2_dwbse"]
 [ext_resource type="Texture2D" uid="uid://dm48ocos8kpy7" path="res://icon.svg" id="2_tlwt5"]
 [ext_resource type="Texture2D" uid="uid://d3pxj2lpfhlf5" path="res://Frezer.png" id="3_036b0"]
 [ext_resource type="Script" uid="uid://go1kfbjsjutv" path="res://npc_follow.gd" id="3_tlwt5"]
 [ext_resource type="Texture2D" uid="uid://bniuxn21ekrr1" path="res://tilemap.png" id="5_036b0"]
+[ext_resource type="Script" uid="uid://masvj64gaa12" path="res://worker.gd" id="6_pkg7o"]
+
+[sub_resource type="Curve2D" id="Curve2D_gbfbk"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 998, -674, 0, 0, 0, 0, 2862, -657, 0, 0, 0, 0, 2860, -347)
+}
+point_count = 3
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_dwbse"]
+vertices = PackedVector2Array(2163.92, 1267.98, 1290, 1266.34, 1290, 886, 1418, 650, 1802, 10, 2152.07, -374.906, 1802, -138, -501.969, -351.078, 1398, -138, 10, 138, 246, -138, 246, 394, 10, 502, 10, -10, 1418, 502, 1398, 10, 1014, 502, 394, 394, 394, -138, 630, 246, 630, 650, 1142, 886, 1142, 1266.07, 906, 1034, 906, 886, 1014, 650, -498.023, 1263.01, 246, 1034, 778, 650, 778, 246, 246, 886, 10, 906, -138, 906, -138, 502, -266, 138, 1162, 10, 778, 10, 778, 138, 630, 138, 630, -138, -266, -10, 1162, -138)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3, 4, 5), PackedInt32Array(5, 4, 6), PackedInt32Array(7, 5, 6, 8), PackedInt32Array(9, 10, 11, 12), PackedInt32Array(10, 9, 13), PackedInt32Array(4, 3, 14), PackedInt32Array(15, 4, 14, 16), PackedInt32Array(17, 18, 19, 20), PackedInt32Array(21, 22, 23, 24, 25), PackedInt32Array(23, 22, 26, 27), PackedInt32Array(25, 3, 2, 21), PackedInt32Array(16, 25, 24, 28, 29), PackedInt32Array(28, 24, 30, 20), PackedInt32Array(12, 11, 17, 20, 30, 31), PackedInt32Array(31, 30, 27, 26), PackedInt32Array(32, 31, 26), PackedInt32Array(33, 32, 26, 7, 34), PackedInt32Array(15, 16, 35, 8), PackedInt32Array(36, 35, 16, 37), PackedInt32Array(37, 16, 29), PackedInt32Array(37, 29, 19, 38), PackedInt32Array(38, 19, 18), PackedInt32Array(39, 38, 18), PackedInt32Array(34, 9, 12, 33), PackedInt32Array(40, 34, 7), PackedInt32Array(8, 35, 41), PackedInt32Array(7, 8, 41), PackedInt32Array(7, 41, 39), PackedInt32Array(7, 39, 18), PackedInt32Array(7, 18, 10), PackedInt32Array(40, 7, 10, 13)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(-512, -361, -508, 1273, 2174, 1278, 2162, -385)])
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_pkg7o"]
+texture = ExtResource("5_036b0")
+separation = Vector2i(1, 1)
+0:2/0 = 0
+0:0/0 = 0
+0:1/0 = 0
+1:0/0 = 0
+1:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(3.99512, 8, 3.93042, 3.93042, 4.93325, 4.05982, 4.9656, 3.02465, 8, 2.9276, 8, 5.90372, 6.00077, 6.09782, 6.03312, 8)
+2:1/0 = 0
+2:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+2:2/0 = 0
+2:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, 0.94559, 8, 0.94559, 8, -4.89988, 1.97714, -5.12911, 1.97714, -6.16067, -5.0145, -6.04605, -5.0145, -5.0718, -8, -5.18642)
+3:2/0 = 0
+3:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-3.86832, -8, -3.86832, 0.20058, -4.95719, 0.143271, -5.0145, 1.06021, -8, 0.888282, -8, -5.12911, -6.10336, -4.95719, -6.04605, -8)
+3:1/0 = 0
+3:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-5.98874, -8, -5.93143, 8, -4.04025, 8, -3.98294, -8)
+3:0/0 = 0
+3:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, 3.02465, -3.99512, 3.08935, -4.02747, 8, -8, 8)
+2:0/0 = 0
+2:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, 2.95139, -5.12911, 3.0087, -5.12911, 1.97714, 1.80522, 2.09176, 1.86253, 2.83677, 8, 3.14753, 8, 8, -8, 8)
+1:1/0 = 0
+1:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(3.96277, -8, 3.99512, 8, 5.93607, 8, 6.00077, -8)
+1:2/0 = 0
+1:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(4.04025, -8, 4.04025, 0.0286541, 4.93325, 0.080873, 4.99795, 1.05135, 8, 1.0029, 8, -5.0145, 5.93143, -5.0145, 5.93143, -8)
+1:3/0 = 0
+1:4/0 = 0
+2:4/0 = 0
+2:3/0 = 0
+4:1/0 = 0
+4:2/0 = 0
+5:2/0 = 0
+6:2/0 = 0
+7:2/0 = 0
+7:1/0 = 0
+8:1/0 = 0
+9:0/0 = 0
+8:0/0 = 0
+7:0/0 = 0
+6:0/0 = 0
+5:0/0 = 0
+4:0/0 = 0
+6:1/0 = 0
+4:3/0 = 0
+3:3/0 = 0
+4:4/0 = 0
+5:4/0 = 0
+6:4/0 = 0
+4:5/0 = 0
+1:5/0 = 0
+2:5/0 = 0
+3:5/0 = 0
+7:4/0 = 0
+8:3/0 = 0
+8:4/0 = 0
+8:5/0 = 0
+8:6/0 = 0
+9:5/0 = 0
+10:4/0 = 0
+10:3/0 = 0
+11:2/0 = 0
+11:1/0 = 0
+10:1/0 = 0
+9:1/0 = 0
+6:3/0 = 0
+5:3/0 = 0
+3:4/0 = 0
+2:6/0 = 0
+2:7/0 = 0
+1:8/0 = 0
+1:7/0 = 0
+1:6/0 = 0
+1:9/0 = 0
+2:9/0 = 0
+2:10/0 = 0
+3:9/0 = 0
+3:10/0 = 0
+4:10/0 = 0
+5:10/0 = 0
+6:10/0 = 0
+6:9/0 = 0
+7:9/0 = 0
+8:9/0 = 0
+9:9/0 = 0
+5:9/0 = 0
+7:8/0 = 0
+8:8/0 = 0
+8:7/0 = 0
+7:7/0 = 0
+6:7/0 = 0
+5:7/0 = 0
+4:7/0 = 0
+3:7/0 = 0
+2:8/0 = 0
+0:8/0 = 0
+0:7/0 = 0
+0:6/0 = 0
+0:5/0 = 0
+1:10/0 = 0
+0:10/0 = 0
+0:9/0 = 0
+3:8/0 = 0
+4:6/0 = 0
+5:6/0 = 0
+6:6/0 = 0
+7:6/0 = 0
+9:6/0 = 0
+10:6/0 = 0
+11:6/0 = 0
+11:5/0 = 0
+9:7/0 = 0
+9:8/0 = 0
+10:8/0 = 0
+6:8/0 = 0
+5:8/0 = 0
+4:8/0 = 0
+4:9/0 = 0
+7:10/0 = 0
+8:10/0 = 0
+9:10/0 = 0
+10:10/0 = 0
+11:10/0 = 0
+11:9/0 = 0
+11:8/0 = 0
+11:7/0 = 0
+11:4/0 = 0
+11:3/0 = 0
+10:5/0 = 0
+10:2/0 = 0
+9:4/0 = 0
+9:3/0 = 0
+9:2/0 = 0
+11:0/0 = 0
+10:0/0 = 0
+5:5/0 = 0
+7:3/0 = 0
+3:6/0 = 0
+7:5/0 = 0
+6:5/0 = 0
+10:7/0 = 0
+0:4/0 = 0
+0:3/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_gbfbk"]
+texture = ExtResource("2_dwbse")
+texture_region_size = Vector2i(128, 128)
+0:0/0 = 0
+1:0/0 = 0
+0:1/0 = 0
+1:1/0 = 0
+1:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-64, -64, 64, -64, 64, 64, -64, 64)
+
+[sub_resource type="TileSet" id="TileSet_gbfbk"]
+tile_size = Vector2i(128, 128)
+physics_layer_0/collision_layer = 1
+sources/0 = SubResource("TileSetAtlasSource_pkg7o")
+sources/3 = SubResource("TileSetAtlasSource_gbfbk")
 
 [sub_resource type="SkeletonModificationStack2D" id="SkeletonModificationStack2D_dwbse"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_aqk2v"]
 size = Vector2(116, 112)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ioo17"]
+size = Vector2(128, 128)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_wse8f"]
+radius = 200.0
+
 [sub_resource type="CircleShape2D" id="CircleShape2D_036b0"]
 radius = 440.89
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_dwbse"]
 radius = 229.445
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_tlwt5"]
-size = Vector2(642, 64)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_pkg7o"]
 texture = ExtResource("5_036b0")
@@ -167,9 +340,35 @@ sources/0 = SubResource("TileSetAtlasSource_pkg7o")
 
 [node name="World" type="Node2D"]
 
-[node name="chara" type="CharacterBody2D" parent="." groups=["Player"]]
+[node name="Path2D" type="Path2D" parent="."]
+position = Vector2(-842, 423)
+curve = SubResource("Curve2D_gbfbk")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="Path2D"]
+position = Vector2(998, -674)
+rotation = 0.00911992
+
+[node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
+navigation_polygon = SubResource("NavigationPolygon_dwbse")
+
+[node name="TileMap" type="TileMap" parent="NavigationRegion2D"]
+tile_set = SubResource("TileSet_gbfbk")
+format = 2
+layer_0/tile_data = PackedInt32Array(5, 65539, 1, 65541, 3, 0, 131077, 65539, 1, 196613, 65539, 1, 262149, 65539, 1, -65531, 65539, 1, -65530, 65539, 1, -65529, 65539, 1, -65528, 65539, 1, -65532, 3, 0, 3, 3, 0, 65539, 3, 0, 131075, 3, 0, 196611, 3, 0, 262147, 3, 0, 262148, 3, 0, 196612, 3, 0, 131076, 3, 0, 65540, 3, 0, 4, 3, 0, -65533, 3, 0, -65534, 65539, 1, 2, 65539, 1, 65538, 65539, 1, 131074, 65539, 1, 131073, 3, 0, 196609, 3, 0, 262145, 3, 0, -65536, 3, 0, 0, 3, 0, 65536, 3, 0, 131072, 3, 0, 196608, 3, 0, 262144, 3, 0, -65535, 3, 0, 1, 3, 0, 65537, 3, 0, 196610, 3, 0, 262146, 3, 0, -196608, 3, 0, -131072, 3, 0, -196607, 3, 0, -131071, 3, 0, -196606, 3, 0, -131070, 3, 0, -196605, 3, 0, -131069, 3, 0, -196604, 3, 0, -131068, 3, 0, 327680, 65539, 0, 393216, 65539, 0, 458752, 65539, 0, 524288, 65539, 0, 589824, 65539, 0, 327681, 65539, 0, 393217, 65539, 0, 458753, 65539, 0, 524289, 65539, 0, 589825, 65539, 0, 327682, 65539, 0, 393218, 65539, 0, 458754, 65539, 1, 524290, 65539, 0, 589826, 65539, 0, 327683, 65539, 0, 393219, 65539, 0, 458755, 65539, 1, 524291, 65539, 0, 589827, 65539, 0, 327684, 65539, 0, 393220, 65539, 0, 458756, 65539, 1, 524292, 65539, 0, 589828, 65539, 0, 327685, 65539, 0, 393221, 65539, 0, 458757, 65539, 1, 524293, 65539, 0, 589829, 65539, 0, 327686, 3, 0, 393222, 65539, 0, 458758, 65539, 1, 524294, 65539, 0, 589830, 65539, 0, 327687, 65539, 0, 393223, 65539, 0, 458759, 65539, 0, 524295, 65539, 0, 589831, 65539, 0, 327688, 65539, 0, 393224, 65539, 0, 458760, 65539, 0, 524296, 65539, 0, 589832, 65539, 0, 327689, 65539, 0, 393225, 65539, 0, 458761, 65539, 1, 524297, 65539, 1, 589833, 65539, 1, -196603, 3, 1, -131067, 3, 1, -196602, 3, 1, -131066, 3, 1, -196601, 3, 1, -131065, 3, 1, -196600, 3, 1, -131064, 3, 1, -196599, 3, 1, -131063, 3, 1, -196598, 3, 1, -131062, 3, 1, -196597, 3, 1, -131061, 3, 1, -65526, 3, 1, 10, 3, 1, 65546, 3, 0, 131082, 3, 1, 196618, 3, 1, 262154, 65539, 1, 327690, 3, 1, -65525, 65539, 1, 11, 3, 1, 65547, 3, 0, 131083, 3, 1, 196619, 3, 1, 262155, 3, 1, 327691, 3, 1, 131079, 3, 1, 196615, 3, 1, 262151, 3, 1, 131080, 3, 1, 196616, 3, 1, 262152, 65539, 1, 131081, 3, 1, 196617, 3, 1, 262153, 65539, 1, -65527, 3, 0, 9, 3, 0, 65545, 3, 0, 6, 3, 0, 65542, 3, 0, 7, 3, 0, 65543, 3, 0, 8, 3, 0, 65544, 3, 0, 131078, 3, 0, 196614, 3, 0, 262150, 3, 0, 327679, 65539, 1, 393215, 65539, 1, 458751, 65539, 1, 524287, 3, 0, -65540, 3, 1, -4, 3, 1, 65532, 3, 1, 131068, 3, 1, 196604, 3, 1, 262140, 3, 1, -65539, 3, 1, -3, 3, 1, 65533, 3, 1, 131069, 3, 1, 196605, 3, 1, 262141, 3, 1, -65538, 3, 1, -2, 3, 1, 65534, 65539, 1, 131070, 3, 1, 196606, 3, 1, 262142, 3, 0, -65537, 3, 1, -1, 3, 1, 65535, 65539, 1, 131071, 3, 1, 196607, 3, 1, 262143, 3, 0, 327676, 3, 0, 393212, 3, 0, 327677, 3, 0, 393213, 3, 0, 458748, 3, 0, 524284, 3, 0, 589820, 3, 0, 655356, 3, 0, 458749, 3, 0, 524285, 3, 0, 589821, 3, 0, 655357, 3, 0, 327678, 3, 0, 393214, 3, 0, 458750, 3, 0, 524286, 3, 0, 589822, 3, 0, 655358, 3, 0, 589823, 3, 0, 655359, 3, 0, -196596, 65539, 0, -131060, 65539, 0, -65524, 65539, 1, 12, 65539, 0, 65548, 3, 0, 131084, 65539, 0, 196620, 65539, 0, 262156, 65539, 0, 327692, 65539, 0, -196595, 65539, 0, -131059, 65539, 0, -65523, 65539, 1, 13, 65539, 0, 65549, 3, 0, 131085, 3, 0, 196621, 3, 0, 262157, 3, 0, 327693, 3, 0, -196594, 65539, 0, -131058, 65539, 0, -65522, 65539, 0, 14, 65539, 0, 65550, 65539, 0, 131086, 65539, 0, 196622, 65539, 0, 262158, 65539, 0, 327694, 65539, 0, -196593, 65539, 0, -131057, 65539, 0, -65521, 65539, 0, 15, 65539, 0, 65551, 65539, 0, 131087, 65539, 0, 196623, 65539, 0, 262159, 65539, 0, 327695, 65539, 0, -196592, 65539, 0, -131056, 65539, 0, -65520, 65539, 0, 16, 65539, 0, 65552, 65539, 0, 131088, 65539, 0, 196624, 65539, 0, 262160, 65539, 0, 327696, 65539, 0, 393226, 3, 1, 458762, 3, 1, 524298, 3, 1, 589834, 3, 1, 393227, 3, 0, 458763, 3, 0, 524299, 3, 0, 589835, 3, 0, 393228, 3, 0, 458764, 3, 0, 524300, 3, 0, 589836, 3, 0, 393229, 3, 0, 458765, 3, 0, 524301, 3, 0, 589837, 3, 0, 393230, 65539, 0, 458766, 65539, 0, 524302, 65539, 0, 589838, 65539, 0, 393231, 65539, 0, 458767, 65539, 0, 524303, 65539, 0, 589839, 65539, 0, 393232, 65539, 0, 458768, 65539, 0, 524304, 65539, 0, 589840, 65539, 0)
+
+[node name="chara" type="CharacterBody2D" parent="." node_paths=PackedStringArray("tilemap") groups=["Player"]]
 position = Vector2(212, 283)
 script = ExtResource("1_fj7yv")
+tilemap = NodePath("../NavigationRegion2D/TileMap")
+
+[node name="Skeleton2D" type="Skeleton2D" parent="chara"]
+position = Vector2(20, 35)
+modification_stack = SubResource("SkeletonModificationStack2D_dwbse")
+
+[node name="Bone2D" type="Bone2D" parent="chara/Skeleton2D"]
+
+[node name="Frezer" type="Sprite2D" parent="chara"]
+texture = ExtResource("3_036b0")
 
 [node name="Skeleton2D" type="Skeleton2D" parent="chara"]
 position = Vector2(20, 35)
@@ -187,6 +386,75 @@ texture = ExtResource("2_tlwt5")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="chara"]
 position = Vector2(-2, 4)
 shape = SubResource("RectangleShape2D_aqk2v")
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="chara"]
+path_desired_distance = 71.28
+target_desired_distance = 48.45
+avoidance_enabled = true
+radius = 71.64
+debug_enabled = true
+debug_use_custom = true
+debug_path_custom_point_size = 22.49
+
+[node name="Camera2D" type="Camera2D" parent="chara"]
+
+[node name="Worker" type="CharacterBody2D" parent="." node_paths=PackedStringArray("path", "path_follow")]
+position = Vector2(-842, 423)
+script = ExtResource("6_pkg7o")
+path = NodePath("../Path2D")
+path_follow = NodePath("../Path2D/PathFollow2D")
+speed = 0.3
+
+[node name="Sprite2D" type="Sprite2D" parent="Worker"]
+texture = ExtResource("2_tlwt5")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Worker"]
+shape = SubResource("RectangleShape2D_ioo17")
+
+[node name="Interaction" type="Area2D" parent="Worker"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Worker/Interaction"]
+shape = SubResource("CircleShape2D_wse8f")
+
+[node name="Button" type="Button" parent="Worker"]
+offset_left = 91.0
+offset_top = -121.0
+offset_right = 186.0
+offset_bottom = -90.0
+text = "Pekerjakan"
+
+[node name="Label" type="Label" parent="Worker"]
+offset_left = -62.0
+offset_top = -97.0
+offset_right = 64.0
+offset_bottom = -74.0
+text = "State"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="Worker"]
+
+[node name="Timer" type="Timer" parent="Worker"]
+one_shot = true
+
+[node name="Dialog" type="ColorRect" parent="Worker"]
+offset_left = -152.0
+offset_top = -170.0
+offset_right = 3.0
+offset_bottom = -108.0
+
+[node name="Label" type="Label" parent="Worker/Dialog"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "Kita dapat %d resource boss"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
 
 [node name="Npc" type="CharacterBody2D" parent="."]
 position = Vector2(937, 535)
@@ -220,38 +488,12 @@ shape = SubResource("CircleShape2D_036b0")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Npc/Attack"]
 shape = SubResource("CircleShape2D_dwbse")
 
-[node name="Tembok cina" type="StaticBody2D" parent="."]
-position = Vector2(849, 182)
-rotation = -0.785398
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="Npc"]
 
-[node name="Icon" type="Sprite2D" parent="Tembok cina"]
-scale = Vector2(5, 0.5)
-texture = ExtResource("2_tlwt5")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Tembok cina"]
-position = Vector2(1, 0)
-shape = SubResource("RectangleShape2D_tlwt5")
-
-[node name="Tembok cina2" type="StaticBody2D" parent="."]
-position = Vector2(840, 755)
-rotation = 0.785398
-
-[node name="Icon" type="Sprite2D" parent="Tembok cina2"]
-scale = Vector2(5, 0.5)
-texture = ExtResource("2_tlwt5")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Tembok cina2"]
-position = Vector2(1, 0)
-shape = SubResource("RectangleShape2D_tlwt5")
-
-[node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(804, 599)
-zoom = Vector2(0.5, 0.5)
-
-[node name="TileMap" type="TileMap" parent="."]
-tile_set = SubResource("TileSet_gbfbk")
-format = 2
-
+[connection signal="body_entered" from="Worker/Interaction" to="Worker" method="_on_interaction_body_entered"]
+[connection signal="body_exited" from="Worker/Interaction" to="Worker" method="_on_interaction_body_exited"]
+[connection signal="pressed" from="Worker/Button" to="Worker" method="_on_button_pressed"]
+[connection signal="timeout" from="Worker/Timer" to="Worker" method="_on_timer_timeout"]
 [connection signal="body_entered" from="Npc/Area2D" to="Npc" method="_on_area_2d_body_entered"]
 [connection signal="body_exited" from="Npc/Area2D" to="Npc" method="_on_area_2d_body_exited"]
 [connection signal="body_entered" from="Npc/Attack" to="Npc" method="_on_attack_body_entered"]

@@ -6,6 +6,10 @@ var target_found: bool
 @onready var raycast = $RayCast2D
 @onready var Attack_Range: Area2D = $Attack
 @onready var Current_State: Label = $Label
+<<<<<<< Updated upstream
+=======
+@onready var NavAgent: NavigationAgent2D = $NavigationAgent2D
+>>>>>>> Stashed changes
 
 # State machine variables
 enum State {IDLE, MENGEJAR, MENYERANG}
@@ -35,7 +39,8 @@ func _physics_process(delta: float) -> void:
 		State.MENGEJAR:
 			# State Mengejar: NPC mengejar target
 			if target_found:
-				var direction = (target.position - position).normalized()
+				makepath()
+				var direction = to_local(NavAgent.get_next_path_position()).normalized()
 				velocity = direction * SPEED
 			elif target == null:
 				target_found = false
@@ -55,6 +60,9 @@ func _physics_process(delta: float) -> void:
 				change_state(State.IDLE)
 	
 	move_and_slide()
+
+func makepath():
+	NavAgent.target_position = target.global_position
 
 func change_state(new_state):
 	if current_state != new_state:
