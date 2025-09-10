@@ -9,16 +9,18 @@ var target_found: bool
 @onready var NavAgent: NavigationAgent2D = $NavigationAgent2D
 
 enum Mode {PASIF, AGRESIF}
-enum State {PATROL, MENGAWASI, MENGEJAR, INVESTIGASI, MENYERANG}
+enum State {PATROL, MENGAWASI, MENGEJAR, INVESTIGASI, MENYERANG, MUNDUR}
 
 var current_mode: Mode = Mode.PASIF
 var current_state: State = State.PATROL
 
 var last_known_position: Vector2
 var investigation_timer: float = 0.0
-var max_investigation_time: float = 10.0
+var max_investigation_time: float = 6.0
 var mengawasi_timer: float = 0.0
 var max_mengawasi_time: float = 3.0
+var patrol_timer:float = 0
+var max_patrol_timer:float = 5.0
 
 @export var idle_path: Path2D
 @export var idle_speed: float = 50.0
@@ -33,7 +35,6 @@ func _ready():
 	NavAgent.target_desired_distance = 4.0
 
 func _physics_process(delta: float) -> void:
-	# Update raycast
 	if target:
 		raycast.target_position = to_local(target.global_position)
 		raycast.force_raycast_update()
@@ -43,49 +44,51 @@ func _physics_process(delta: float) -> void:
 		else:
 			target_found = false
 	
-
-	# Handle modes and states
 	match current_mode:
 		Mode.PASIF:
 			match current_state:
 				State.PATROL:
-					print(mengawasi_timer)
 					if idle_path and path_follow:
-						var trip:bool = false
 						if path_follow.progress_ratio >= 0.99:
 							patrol_direction = -1
 						elif path_follow.progress_ratio <= 0.01:
 							patrol_direction = 1
-						if path_follow.progress_ratio >= 0.99 or  path_follow.progress_ratio <= 0.01 and trip : 
-							mengawasi_timer = 0.0
-							change_state(State.MENGAWASI)
 						path_progress += idle_speed * delta * patrol_direction
 						path_follow.progress = path_progress
-						
+						patrol_timer += delta
 						global_position = path_follow.global_position
 						velocity = Vector2.ZERO
+						if patrol_timer > max_patrol_timer:
+							mengawasi_timer = 0
+							change_state(State.MENGAWASI)
 					else:
 						velocity = Vector2.ZERO
 					
-					# Cek jika target terdeteksi
 					if target and target_found:
 						change_mode(Mode.AGRESIF)
 						change_state(State.MENGEJAR)
 				
 				State.MENGAWASI:
-					# State MENGAWASI: Diam di tempat selama beberapa detik
 					velocity = Vector2.ZERO
 					mengawasi_timer += delta
 					
 					if mengawasi_timer >= max_mengawasi_time:
+						patrol_timer = 0
 						change_state(State.PATROL)
-						
-						
 					
-					# Cek jika target terdeteksi
 					if target and target_found:
 						change_mode(Mode.AGRESIF)
 						change_state(State.MENGEJAR)
+				State.MUNDUR:
+					NavAgent.target_position = idle_path.global_position
+					var next_path_pos = NavAgent.get_next_path_position()
+					var direction = global_position.direction_to(next_path_pos)
+					velocity = direction * SPEED
+					if target and target_found:
+						change_mode(Mode.AGRESIF)
+						change_state(State.MENGEJAR)
+					if global_position.distance_to(idle_path.global_position) < 0.5:
+						change_state(State.PATROL)
 		
 		Mode.AGRESIF:
 			match current_state:
@@ -102,14 +105,10 @@ func _physics_process(delta: float) -> void:
 						
 						if target and not target_found:
 							change_state(State.INVESTIGASI)
-					
-					# Cek jika target menghilang
-					if not target:
-						change_mode(Mode.PASIF)
-						change_state(State.PATROL)
+					if not target_found:
+						change_state(State.INVESTIGASI)
 				
 				State.INVESTIGASI:
-					# State INVESTIGASI: Menuju posisi terakhir target
 					investigation_timer += delta
 					NavAgent.target_position = last_known_position
 					
@@ -122,15 +121,10 @@ func _physics_process(delta: float) -> void:
 						
 						if investigation_timer >= max_investigation_time:
 							change_mode(Mode.PASIF)
-							change_state(State.PATROL)
+							change_state(State.MUNDUR)
 					
 					if target and target_found:
 						change_state(State.MENGEJAR)
-					
-					# Cek jika target menghilang
-					if not target:
-						change_mode(Mode.PASIF)
-						change_state(State.PATROL)
 				
 				State.MENYERANG:
 					# State MENYERANG: Menyerang target
