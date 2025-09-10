@@ -21,7 +21,7 @@ var player_in_area: bool = false
 var progress_target: float = 0.0
 
 func _ready() -> void:
-	position = path_follow.global_position
+	#position = path_follow.global_position
 	Interact_Btn.visible = false
 	Dialog_Bubble.visible = false
 	if path_follow:
