@@ -10,6 +10,7 @@ extends CharacterBody2D
 @export var path:Path2D
 @export var path_follow:PathFollow2D
 @export var speed: float = 100
+@onready var spawn = $Spawner
 
 enum State {IDLE, BEKERJA, LAPORAN_HASIL}
 var current_state = State.IDLE
@@ -42,7 +43,7 @@ func _physics_process(delta: float) -> void:
 			
 			if path_follow.progress_ratio >= 0.99:
 				if working_time == 0.0:
-					random_working_time = randf_range(8.0, 15.0)
+					random_working_time = randf_range(3.0, 5.0)
 					timer.start(random_working_time)
 					working_time = random_working_time
 					resources_collected = randi() % 10 + 1 
@@ -86,8 +87,8 @@ func update_state_text():
 func show_dialog():
 	Dialog_Text.text = "Kita dapat %d resource boss!" % resources_collected
 	Dialog_Bubble.visible = true
+	spawn.spawn_item(resources_collected)
 	
-	# Auto hide dialog after 3 seconds
 	var timer_dialog = Timer.new()
 	timer_dialog.wait_time = 3.0
 	timer_dialog.one_shot = true

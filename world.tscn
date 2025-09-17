@@ -1,11 +1,18 @@
-[gd_scene load_steps=17 format=3 uid="uid://dq0gdss5mo55y"]
+[gd_scene load_steps=19 format=3 uid="uid://dq0gdss5mo55y"]
 
 [ext_resource type="Script" uid="uid://qcwctk5jm4f7" path="res://chara.gd" id="1_fj7yv"]
 [ext_resource type="Texture2D" uid="uid://do2vsf3ixw2ed" path="res://testile.png" id="2_dwbse"]
 [ext_resource type="Texture2D" uid="uid://dm48ocos8kpy7" path="res://icon.svg" id="2_tlwt5"]
 [ext_resource type="Texture2D" uid="uid://d3pxj2lpfhlf5" path="res://Frezer.png" id="3_036b0"]
 [ext_resource type="Script" uid="uid://go1kfbjsjutv" path="res://npc_follow.gd" id="3_tlwt5"]
+[ext_resource type="PackedScene" uid="uid://dt7imjoutfbia" path="res://dropper.tscn" id="6_gbfbk"]
 [ext_resource type="Script" uid="uid://masvj64gaa12" path="res://worker.gd" id="6_pkg7o"]
+
+[sub_resource type="Curve2D" id="Curve2D_pkg7o"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 133, -213, 0, 0, 0, 0, 133, -213, 0, 0, 0, 0, 1229, -186, 0, 0, 0, 0, 1705, -289)
+}
+point_count = 4
 
 [sub_resource type="Curve2D" id="Curve2D_dwbse"]
 _data = {
@@ -51,8 +58,14 @@ radius = 229.445
 
 [node name="World" type="Node2D"]
 
+[node name="Path2D2" type="Path2D" parent="."]
+curve = SubResource("Curve2D_pkg7o")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="Path2D2"]
+position = Vector2(132.803, -213.005)
+
 [node name="Path2D" type="Path2D" parent="."]
-position = Vector2(1136, 266)
+position = Vector2(892, 798)
 curve = SubResource("Curve2D_dwbse")
 
 [node name="PathFollow2D" type="PathFollow2D" parent="Path2D"]
@@ -88,9 +101,6 @@ texture = ExtResource("3_036b0")
 position = Vector2(20, 35)
 modification_stack = SubResource("SkeletonModificationStack2D_dwbse")
 
-[node name="Frezer2" type="Sprite2D" parent="chara"]
-texture = ExtResource("3_036b0")
-
 [node name="Icon" type="Sprite2D" parent="chara"]
 visible = false
 texture = ExtResource("2_tlwt5")
@@ -111,11 +121,14 @@ debug_path_custom_point_size = 22.49
 [node name="Camera2D" type="Camera2D" parent="chara"]
 zoom = Vector2(0.5, 0.5)
 
-[node name="Worker" type="CharacterBody2D" parent="."]
-visible = false
+[node name="Worker" type="CharacterBody2D" parent="." node_paths=PackedStringArray("path", "path_follow")]
 position = Vector2(-842, 423)
 script = ExtResource("6_pkg7o")
+path = NodePath("../Path2D2")
+path_follow = NodePath("../Path2D2/PathFollow2D")
 speed = 0.3
+
+[node name="Spawner" parent="Worker" instance=ExtResource("6_gbfbk")]
 
 [node name="Sprite2D" type="Sprite2D" parent="Worker"]
 texture = ExtResource("2_tlwt5")

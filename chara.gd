@@ -16,7 +16,7 @@ func _physics_process(delta: float) -> void:
 	else:
 		velocity = Vector2.ZERO
 		target_position = null
-	handle_movement_input()
+	
 	move_and_slide()
 
 func handle_movement_input():
