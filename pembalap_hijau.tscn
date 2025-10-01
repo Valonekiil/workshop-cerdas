@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=3 uid="uid://b5sgerdupw5vt"]
+
+[ext_resource type="Script" uid="uid://bi1goquamgk80" path="res://pembalap.gd" id="1_6m4ni"]
+[ext_resource type="Texture2D" uid="uid://cyoh72qwfmltt" path="res://Frezer_Hand.png" id="2_gb7tf"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_3a74r"]
+radius = 5.0
+
+[node name="CharacterBody2D" type="CharacterBody2D"]
+collision_mask = 0
+script = ExtResource("1_6m4ni")
+player_name = "Hijau"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_3a74r")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+self_modulate = Color(0, 1, 0, 1)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_gb7tf")
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+debug_enabled = true
