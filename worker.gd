@@ -8,9 +8,9 @@ extends CharacterBody2D
 @onready var Dialog_Bubble = $Dialog
 @onready var Dialog_Text = $Dialog/Label
 @onready var spawn = $Spawner
-
+@onready var resource_manager: ResourceSpawnManager = $"../ResourceSpawner"
+@onready var resource_search = $Search
 @export var speed: float = 100
-@export var resource_search_radius: float = 300.0
 
 var current_resource_point: Node2D = null
 var base_position: Vector2
@@ -38,26 +38,27 @@ func check_player_interaction() -> bool:
 	return player_in_area and Interact_Btn.visible
 
 # Action Functions (return "success" when completed, "running" when still working)
+# Modifikasi fungsi find_resource_point
 func find_resource_point() -> String:
-	var resource_points = get_tree().get_nodes_in_group("ResourcePoint")
-	var nearest_point = null
-	var min_distance = INF
+	if resource_search:
+		var active_points = resource_search.get_overlapping_areas().is_in_group("ResourcePoint")
+		var nearest_point 
+		var min_distance = INF
+		for point in active_points:
+			if is_instance_valid(point) and point.is_available():
+				var distance = search_position.distance_to(point.global_position)
+				if distance < min_distance and distance <= max_distance:
+					min_distance = distance
+					nearest_point = point
+		if nearest_point:
+			current_resource_point = nearest_point
+			current_action = "move_to_resource"
+			action_target = nearest_point.global_position
+			update_state_text("Found Resource")
+			return "success"
 	
-	for point in resource_points:
-		var distance = global_position.distance_to(point.global_position)
-		if distance < min_distance and distance <= resource_search_radius:
-			min_distance = distance
-			nearest_point = point
-	
-	if nearest_point:
-		current_resource_point = nearest_point
-		current_action = "move_to_resource"
-		action_target = nearest_point.global_position
-		update_state_text("Found Resource")
-		return "success"
-	else:
-		update_state_text("No Resources")
-		return "failure"
+	update_state_text("No Resources")
+	return "failure"
 
 func move_to_resource() -> String:
 	if current_resource_point == null:
@@ -78,14 +79,23 @@ func work_at_resource() -> String:
 	if working_time == 0.0:
 		random_working_time = randf_range(3.0, 5.0)
 		working_time = random_working_time
-		resources_collected = randi() % 10 + 1
-		update_state_text("Working: %.1fs" % working_time)
+		
+		# Ambil resource dari point
+		if current_resource_point and current_resource_point.has_method("take_resource"):
+			if current_resource_point.take_resource():
+				resources_collected = randi() % 10 + 1
+				update_state_text("Working: %.1fs" % working_time)
+			else:
+				# Resource point sudah tidak tersedia
+				update_state_text("Resource Gone")
+				return "failure"
 	
 	working_time -= get_physics_process_delta_time()
 	
 	if working_time <= 0.0:
 		update_state_text("Work Finished")
 		working_time = 0.0
+		current_resource_point = null
 		return "success"
 	
 	current_action = "work_at_resource"

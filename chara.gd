@@ -20,10 +20,8 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 
 func handle_movement_input():
-	# Reset input vector
 	input_vector = Vector2.ZERO
 	
-	# Check WASD keys
 	if Input.is_key_pressed(KEY_W) or Input.is_key_pressed(KEY_UP):
 		input_vector.y -= 1
 	if Input.is_key_pressed(KEY_S) or Input.is_key_pressed(KEY_DOWN):
@@ -41,8 +39,8 @@ func handle_movement_input():
 	velocity = input_vector * SPEED
 
 func _input(event: InputEvent) -> void:
-	#if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
-		#set_target(get_global_mouse_position())
+	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
+		set_target(get_global_mouse_position())
 	if event is InputEventScreenTouch and event.pressed:
 		set_target(event.position)
 

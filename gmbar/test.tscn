@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://bnxkkhbiitfk"]
+[gd_scene load_steps=19 format=3 uid="uid://bnxkkhbiitfk"]
 
 [ext_resource type="TileSet" uid="uid://75nsjf2xrtgl" path="res://gmbar/tileset_my.tres" id="1_730tw"]
 [ext_resource type="Script" uid="uid://qcwctk5jm4f7" path="res://chara.gd" id="2_vgjl6"]
@@ -6,6 +6,8 @@
 [ext_resource type="Texture2D" uid="uid://dm48ocos8kpy7" path="res://icon.svg" id="4_k3xho"]
 [ext_resource type="Script" uid="uid://masvj64gaa12" path="res://worker.gd" id="5_xujsg"]
 [ext_resource type="PackedScene" uid="uid://dt7imjoutfbia" path="res://dropper.tscn" id="6_ofnfe"]
+[ext_resource type="Script" uid="uid://dwvcjfxwv8qnh" path="res://Resource_Spawner.gd" id="7_k3xho"]
+[ext_resource type="PackedScene" uid="uid://jmf7jqk71a8m" path="res://resource_point.tscn" id="8_osxaw"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_b56bc"]
 vertices = PackedVector2Array(2186, 3082, 3466, 3124, -1432.94, 3124, 2038, 3082, 3466, -648, 2314, 1290, 2314, -394, -1411.06, -648, 2166, -394, 2314, 2058, 2186, 2678, 1162, 138, 1162, -10, 2166, 1290, 246, -10, 1034, 2058, 2038, 2678, 1034, 2442, 2166, 1654, 2166, 1910, -266, 1910, -758, 1674, 502, 1418, 650, 1418, 246, 630, -138, 630, -758, 118, 394, 778, 394, 138, 1162, 1014, 650, 1162, 1162, 1162, 2314, 1654, -266, 2058, 886, 2058, 886, 2442, 502, 1014, -138, 778, -906, 1674, -906, 118)
@@ -24,6 +26,18 @@ size = Vector2(128, 128)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_3jmcg"]
 radius = 200.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_osxaw"]
+radius = 1000.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_k3xho"]
+size = Vector2(250, 700)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xujsg"]
+size = Vector2(750, 100)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ofnfe"]
+size = Vector2(500, 200)
 
 [node name="test" type="Node2D"]
 
@@ -79,6 +93,7 @@ zoom = Vector2(0.5, 0.5)
 position = Vector2(1233, 584)
 script = ExtResource("5_xujsg")
 speed = 0.3
+resource_search_radius = null
 
 [node name="Spawner" parent="Worker" instance=ExtResource("6_ofnfe")]
 
@@ -132,6 +147,34 @@ text = "Kita dapat %d resource boss"
 horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 2
+
+[node name="Search" type="Area2D" parent="Worker"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Worker/Search"]
+shape = SubResource("CircleShape2D_osxaw")
+
+[node name="ResourceSpawner" type="Node2D" parent="."]
+script = ExtResource("7_k3xho")
+
+[node name="Res_Point" parent="." instance=ExtResource("8_osxaw")]
+
+[node name="spawn_1" type="Area2D" parent="."]
+position = Vector2(-934, 668)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="spawn_1"]
+shape = SubResource("RectangleShape2D_k3xho")
+
+[node name="spawn_2" type="Area2D" parent="."]
+position = Vector2(229, 1798)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="spawn_2"]
+shape = SubResource("RectangleShape2D_xujsg")
+
+[node name="spawn_3" type="Area2D" parent="."]
+position = Vector2(868, 1108)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="spawn_3"]
+shape = SubResource("RectangleShape2D_ofnfe")
 
 [connection signal="body_entered" from="Worker/Interaction" to="Worker" method="_on_interaction_body_entered"]
 [connection signal="body_exited" from="Worker/Interaction" to="Worker" method="_on_interaction_body_exited"]
