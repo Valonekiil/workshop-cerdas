@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://bakbnh3kfkibu"]
+
+[ext_resource type="Texture2D" uid="uid://dm48ocos8kpy7" path="res://icon.svg" id="1_dmtc2"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_avrl8"]
+radius = 15.0
+
+[node name="SquadMember" type="CharacterBody2D"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_avrl8")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+self_modulate = Color(0, 1, 0, 1)
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("1_dmtc2")

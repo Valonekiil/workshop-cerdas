@@ -1,0 +1,68 @@
+[gd_scene load_steps=8 format=3 uid="uid://bbc2f6ng4in8v"]
+
+[ext_resource type="Script" uid="uid://ce3ik2t85pmxp" path="res://scripts/coop_main.gd" id="1_n4lu0"]
+[ext_resource type="Script" uid="uid://bru7vhd3xj3bf" path="res://scripts/FormationManager.gd" id="2_ju0vw"]
+[ext_resource type="PackedScene" uid="uid://dxjmnpc0yu2np" path="res://scenes/leader_marker.tscn" id="2_rsc4x"]
+[ext_resource type="Script" uid="uid://cipptr8yv1pjm" path="res://scripts/SlotAssigmentManager.gd" id="3_7u7fx"]
+[ext_resource type="Texture2D" uid="uid://dm48ocos8kpy7" path="res://icon.svg" id="4_rsc4x"]
+[ext_resource type="PackedScene" uid="uid://bakbnh3kfkibu" path="res://scenes/squad_member.tscn" id="6_hopk7"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hopk7"]
+size = Vector2(128, 128)
+
+[node name="Coop-main" type="Node2D"]
+position = Vector2(546, 327)
+script = ExtResource("1_n4lu0")
+
+[node name="LeaderMarker" parent="." instance=ExtResource("2_rsc4x")]
+
+[node name="FormationManager" type="Node" parent="."]
+script = ExtResource("2_ju0vw")
+
+[node name="SlotAssignmentManager" type="Node" parent="."]
+script = ExtResource("3_7u7fx")
+
+[node name="Obstacle" type="Node2D" parent="."]
+
+[node name="Obstacle1" type="StaticBody2D" parent="Obstacle"]
+position = Vector2(-323, -49)
+scale = Vector2(0.5, 0.5)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Obstacle/Obstacle1"]
+shape = SubResource("RectangleShape2D_hopk7")
+
+[node name="Sprite2D" type="Sprite2D" parent="Obstacle/Obstacle1"]
+texture = ExtResource("4_rsc4x")
+
+[node name="Obstacle2" type="StaticBody2D" parent="Obstacle"]
+position = Vector2(201, -205)
+scale = Vector2(0.5, 0.5)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Obstacle/Obstacle2"]
+shape = SubResource("RectangleShape2D_hopk7")
+
+[node name="Sprite2D" type="Sprite2D" parent="Obstacle/Obstacle2"]
+texture = ExtResource("4_rsc4x")
+
+[node name="Obstacle3" type="StaticBody2D" parent="Obstacle"]
+position = Vector2(-311, 76)
+scale = Vector2(0.5, 0.5)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Obstacle/Obstacle3"]
+shape = SubResource("RectangleShape2D_hopk7")
+
+[node name="Sprite2D" type="Sprite2D" parent="Obstacle/Obstacle3"]
+texture = ExtResource("4_rsc4x")
+
+[node name="Obstacle4" type="StaticBody2D" parent="Obstacle"]
+position = Vector2(259, 186)
+scale = Vector2(0.5, 0.5)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Obstacle/Obstacle4"]
+shape = SubResource("RectangleShape2D_hopk7")
+
+[node name="Sprite2D" type="Sprite2D" parent="Obstacle/Obstacle4"]
+texture = ExtResource("4_rsc4x")
+
+[node name="SquadMember" parent="." instance=ExtResource("6_hopk7")]
+position = Vector2(-2, 94)
