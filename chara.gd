@@ -12,11 +12,11 @@ func _physics_process(delta: float) -> void:
 		distance_to = global_position.distance_to(target_position)
 		navigation_agent.target_position = target_position
 		var direction = to_local(navigation_agent.get_next_path_position()).normalized()
-		velocity = direction * SPEED
+		velocity = direction * get_tile()
 	else:
 		velocity = Vector2.ZERO
 		target_position = null
-	handle_movement_input()
+	#handle_movement_input()
 	move_and_slide()
 
 func handle_movement_input():
@@ -53,3 +53,14 @@ func set_target(pos:Vector2):
 		return
 	target_position = tilemap.map_to_local(tile_pos)
 	distance_to = global_position.distance_to(target_position)
+
+func get_tile() -> float:
+	var cell = tilemap.local_to_map(position)
+	var data = tilemap.get_cell_tile_data(0, cell)
+	
+	if data:
+		var tile_speed = data.get_custom_data("sped")
+		var cur_speed = SPEED * tile_speed
+		return cur_speed
+	else:
+		return SPEED
