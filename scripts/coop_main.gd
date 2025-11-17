@@ -14,7 +14,6 @@ func _ready():
 	var assignments = slot_assignment_manager.assign_slots(squad_members)
 	formation_manager.apply_slot_assignments(assignments)
 	
-	# Debug info
 	print("Squad initialized with ", squad_members.size(), " members")
 	print("Total formation score: ", slot_assignment_manager.calculate_total_score())
 

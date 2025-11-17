@@ -1,11 +1,13 @@
-[gd_scene load_steps=3 format=3 uid="uid://bakbnh3kfkibu"]
+[gd_scene load_steps=4 format=3 uid="uid://bakbnh3kfkibu"]
 
+[ext_resource type="Script" uid="uid://dwwugc8lwr0uw" path="res://scripts/SquadMember.gd" id="1_avrl8"]
 [ext_resource type="Texture2D" uid="uid://dm48ocos8kpy7" path="res://icon.svg" id="1_dmtc2"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_avrl8"]
 radius = 15.0
 
 [node name="SquadMember" type="CharacterBody2D"]
+script = ExtResource("1_avrl8")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_avrl8")

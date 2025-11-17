@@ -6,8 +6,8 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_k3xho"]
 radius = 81.0
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_osxaw"]
-radius = 147.122
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_q1mco"]
+size = Vector2(381, 434.5)
 
 [node name="Res_Point" type="Area2D"]
 script = ExtResource("1_q1mco")
@@ -21,4 +21,4 @@ texture = ExtResource("2_ipyrt")
 shape = SubResource("CircleShape2D_k3xho")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("CircleShape2D_osxaw")
+shape = SubResource("RectangleShape2D_q1mco")

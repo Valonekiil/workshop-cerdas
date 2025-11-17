@@ -41,7 +41,7 @@ func spawn_resource_point():
 	add_child(new_point)
 	active_points.append(new_point)
 
-func get_nearest_resource_point(search_position: Vector2, max_distance: float = 300.0) -> Node2D:
+func get_nearest_resource_point(search_position: Vector2, max_distance: float) -> Node2D:
 	var nearest_point = null
 	var min_distance = INF
 	
