@@ -4,9 +4,9 @@ extends CharacterBody2D
 var SPEED = 100
 var target_found: bool
 @onready var raycast = $RayCast2D
-@onready var Attack_Range: Area2D = $Attack
 @onready var Current_State: Label = $Label
 @onready var NavAgent: NavigationAgent2D = $NavigationAgent2D
+@onready var timer: Timer = $Timer
 
 enum Mode {PASIF, AGRESIF}
 enum State {PATROL, MENGAWASI, MENGEJAR, INVESTIGASI, MENYERANG, MUNDUR}
@@ -21,6 +21,8 @@ var mengawasi_timer: float = 0.0
 var max_mengawasi_time: float = 3.0
 var patrol_timer:float = 0
 var max_patrol_timer:float = 5.0
+var attack_time:float = 0.0
+var max_attack:float = 1.5
 
 @export var idle_path: Path2D
 @export var idle_speed: float = 50.0
@@ -129,6 +131,10 @@ func _physics_process(delta: float) -> void:
 				State.MENYERANG:
 					# State MENYERANG: Menyerang target
 					velocity = Vector2.ZERO
+					attack_time += delta
+					if attack_time >= max_attack and target.has_method("take_damage"):
+						target.take_damage()
+						attack_time = 0.0
 					
 					if not target_found:
 						change_state(State.INVESTIGASI)
@@ -174,3 +180,4 @@ func _on_attack_body_entered(body: Node2D) -> void:
 func _on_attack_body_exited(body: Node2D) -> void:
 	if body == target and current_state == State.MENYERANG:
 		change_state(State.MENGEJAR)
+		attack_time = 0.0

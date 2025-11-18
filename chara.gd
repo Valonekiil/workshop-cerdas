@@ -6,6 +6,12 @@ const SPEED = 300.0
 var target_position
 var distance_to
 var input_vector: Vector2 = Vector2.ZERO
+@onready var hp_bar: ProgressBar = $ProgressBar
+var hp = 5
+
+func _ready() -> void:
+	hp_bar.max_value = hp
+	hp_bar.value = hp
 
 func _physics_process(delta: float) -> void:
 	if target_position and distance_to > 5 :
@@ -16,7 +22,7 @@ func _physics_process(delta: float) -> void:
 	else:
 		velocity = Vector2.ZERO
 		target_position = null
-	#handle_movement_input()
+	handle_movement_input()
 	move_and_slide()
 
 func handle_movement_input():
@@ -31,11 +37,9 @@ func handle_movement_input():
 	if Input.is_key_pressed(KEY_D) or Input.is_key_pressed(KEY_RIGHT):
 		input_vector.x += 1
 	
-	# Normalize vector for diagonal movement
 	if input_vector.length() > 0:
 		input_vector = input_vector.normalized()
 	
-	# Apply velocity
 	velocity = input_vector * SPEED
 
 func _input(event: InputEvent) -> void:
@@ -64,3 +68,13 @@ func get_tile() -> float:
 		return cur_speed
 	else:
 		return SPEED
+
+@onready var frezer: Sprite2D = $Frezer
+func take_damage():
+	hp -= 1
+	hp_bar.value = hp
+	frezer.self_modulate = Color.RED
+	await get_tree().create_timer(0.2).timeout
+	frezer.self_modulate = Color.WHITE
+	if hp <= 0:
+		get_tree().reload_current_scene()

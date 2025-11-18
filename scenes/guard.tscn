@@ -1,0 +1,46 @@
+[gd_scene load_steps=6 format=3 uid="uid://cm5wewbfu2jtx"]
+
+[ext_resource type="Script" uid="uid://go1kfbjsjutv" path="res://npc_follow.gd" id="1_ci2qi"]
+[ext_resource type="Texture2D" uid="uid://dm48ocos8kpy7" path="res://icon.svg" id="1_m4fl1"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ci2qi"]
+size = Vector2(62, 62)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_k0dx2"]
+radius = 320.014
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ci2qi"]
+radius = 102.703
+
+[node name="Guard" type="CharacterBody2D"]
+script = ExtResource("1_ci2qi")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("1_m4fl1")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_ci2qi")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_k0dx2")
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
+
+[node name="Attack" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Attack"]
+shape = SubResource("CircleShape2D_ci2qi")
+
+[node name="Label" type="Label" parent="."]
+offset_right = 40.0
+offset_bottom = 23.0
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]
+[connection signal="body_entered" from="Attack" to="." method="_on_attack_body_entered"]
+[connection signal="body_exited" from="Attack" to="." method="_on_attack_body_exited"]

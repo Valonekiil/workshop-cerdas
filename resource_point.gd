@@ -4,7 +4,7 @@ extends Area2D
 @onready var collision = $CollisionShape2D
 
 var is_active: bool = true
-@export var lifetime: float = 10.0
+@export var lifetime: float = 1.0
 var lifetime_timer: float = 0.0
 
 func _ready():
