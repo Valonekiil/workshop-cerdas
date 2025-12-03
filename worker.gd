@@ -11,6 +11,7 @@ extends CharacterBody2D
 @onready var search_area: Area2D = $Search
 
 @export var speed: float = 100
+@export var max_work_duration: float = 15.0  # Durasi maksimal kerja (60 detik)
 
 var current_resource_point: Node2D = null
 var base_position: Vector2
@@ -27,7 +28,11 @@ var work_commanded: bool = false
 
 var search_duration: float = 0.0
 var max_search_time: float = 15.0
-var is_searching:bool = false
+var is_searching: bool = false
+
+# Variabel untuk durasi kerja
+var work_duration: float = 0.0  # Sisa durasi kerja
+var current_work_session_duration: float = 0.0  # Total durasi sesi kerja saat ini
 
 func _ready() -> void:
 	Interact_Btn.visible = false
@@ -46,6 +51,16 @@ func setup_navigation():
 func _physics_process(delta: float) -> void:
 	execute_behavior_tree()
 	handle_movement()
+	
+	# Update durasi kerja jika sedang bekerja
+	if work_commanded and work_duration > 0:
+		work_duration -= delta
+		update_duration_progress()
+		
+		# Cek jika durasi habis
+		if work_duration <= 0:
+			on_work_duration_completed()
+	
 	move_and_slide()
 
 func execute_behavior_tree():
@@ -81,7 +96,7 @@ func execute_report_behavior() -> BehaviorStatus:
 	return BehaviorStatus.SUCCESS
 
 func execute_work_behavior() -> BehaviorStatus:
-	if not work_commanded:
+	if not work_commanded or work_duration <= 0:
 		return BehaviorStatus.FAILURE
 	
 	Interact_Btn.visible = false
@@ -100,26 +115,21 @@ func execute_work_behavior() -> BehaviorStatus:
 			return BehaviorStatus.RUNNING
 
 func find_resource_behavior() -> BehaviorStatus:
-	# 🎯 HANYA UPDATE SEARCH DURATION JIKA MASIH DALAM SEARCH MODE
 	if is_searching:
 		search_duration += get_physics_process_delta_time()
 	
 	print("🔍 Search duration: ", search_duration, "s | Searching: ", is_searching)
 	
-	# 🎯 CEK TIMEOUT HANYA JIKA MASIH SEARCHING
 	if is_searching and search_duration >= max_search_time:
 		update_state_text("Search Timeout - No Resources")
 		print("⏰ Search timeout after ", search_duration, " seconds")
 		
 		resources_collected = 1
-		current_behavior = "idle"
-		work_commanded = false
-		is_searching = false  # 🎯 KELUAR DARI SEARCH MODE
+		current_behavior = "return_to_base"
+		current_action = "return_to_base"
+		is_searching = false
 		
-		if player_in_area:
-			Interact_Btn.visible = true
-		
-		return BehaviorStatus.SUCCESS
+		return BehaviorStatus.RUNNING
 	
 	if resource_manager:
 		var radius = search_area.get_child(0).shape.radius
@@ -138,9 +148,8 @@ func find_resource_behavior() -> BehaviorStatus:
 
 func move_to_resource_behavior() -> BehaviorStatus:
 	if current_resource_point == null or not is_instance_valid(current_resource_point):
-		# 🎯 JIKA RESOURCE HILANG SAAT SEDANG MENUJU, KEMBALI SEARCH
 		current_behavior = "find_resource"
-		is_searching = true  # 🎯 MULAI LAGI SEARCH MODE
+		is_searching = true
 		return BehaviorStatus.FAILURE
 	
 	var distance = global_position.distance_to(current_resource_point.global_position)
@@ -166,10 +175,9 @@ func work_at_resource_behavior() -> BehaviorStatus:
 				resources_collected = randi() % 10 + 1
 				update_state_text("Working: %.1fs" % working_time)
 			else:
-				# 🎯 JIKA RESOURCE SUDAH HABIS, KEMBALI SEARCH
 				current_behavior = "find_resource"
 				current_action = ""
-				is_searching = true  # 🎯 MULAI LAGI SEARCH MODE
+				is_searching = true
 				update_state_text("Resource Gone - Searching Again")
 				return BehaviorStatus.FAILURE
 	
@@ -193,9 +201,8 @@ func return_to_base_behavior() -> BehaviorStatus:
 	if distance < 10.0:
 		current_behavior = "idle"
 		current_action = ""
-		is_searching = false  # 🎯 PASTIKAN KELUAR DARI SEARCH MODE
+		is_searching = false
 		
-		# 🎯 SHOW BUTTON KEMBALI SETELAH KEMBALI KE BASE
 		if player_in_area:
 			Interact_Btn.visible = true
 		
@@ -206,7 +213,6 @@ func return_to_base_behavior() -> BehaviorStatus:
 	update_state_text("Returning to Base")
 	return BehaviorStatus.RUNNING
 
-# 🎯 MODIFIED IDLE BEHAVIOR
 func execute_idle_behavior():
 	if not work_commanded:
 		match current_behavior:
@@ -254,21 +260,39 @@ func _on_button_pressed() -> void:
 			current_action = ""
 			Interact_Btn.visible = false
 			
-			# 🎯 RESET SEARCH DURATION DAN SET FLAG
+			# Set durasi kerja
+			work_duration = max_work_duration
+			current_work_session_duration = max_work_duration
+			
+			# Reset search duration
 			search_duration = 0.0
-			is_searching = true  # 🎯 MULAI SEARCH MODE
+			is_searching = true
+			
 			
 			update_state_text("Commanded to Work!")
-			print("🎯 Work commanded - Starting search")
+			print("🎯 Work commanded - Starting search (Duration: %.1fs)" % work_duration)
 
-# 🎯 MODIFIED INTERACTION HANDLER
+func on_work_duration_completed():
+	print("⏰ Work duration completed!")
+	work_commanded = false
+	
+	if current_behavior == "work_at_resource" or current_behavior == "move_to_resource" or current_behavior == "find_resource":
+		current_behavior = "return_to_base"
+		current_action = "return_to_base"
+		current_resource_point = null
+		update_state_text("Time's up! Returning to base")
+	
+
+func update_duration_progress():
+	
+	if current_behavior != "idle" and current_behavior != "patrol" and current_behavior != "wait":
+		state_text.text += " (Time left: %.1fs)" % work_duration
+
 func _on_interaction_body_entered(body: Node2D) -> void:
 	if body.is_in_group("Player"):
 		player_in_area = true
-		# 🎯 HANYA SHOW BUTTON JIKA TIDAK SEDANG BEKERJA
 		if not work_commanded and resources_collected == 0:
 			Interact_Btn.visible = true
-		# 🎯 ATAU JIKA SUDAH PUNYA RESOURCES UNTUK DI-REPORT
 		elif resources_collected > 0:
 			Interact_Btn.visible = true
 
@@ -277,7 +301,6 @@ func _on_interaction_body_exited(body: Node2D) -> void:
 		player_in_area = false
 		Interact_Btn.visible = false
 
-# 🎯 MOVEMENT HANDLER & FUNGSI LAINNYA TETAP SAMA
 func handle_movement():
 	if current_action in ["patrol", "move_to_resource", "return_to_base"]:
 		nav_agent.target_position = action_target

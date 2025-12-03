@@ -36,7 +36,6 @@ var formations = {
 
 var current_formation: Array
 var squad_members: Array = []
-var current_velocity: Vector2 = Vector2.ZERO
 
 func _ready():
 	add_to_group("leader_marker")
@@ -46,7 +45,7 @@ func _ready():
 func _physics_process(delta):
 	handle_input(delta)
 	update_leader_velocity()
-	move_and_slide()
+	move_and_slide()  # ✅ PERBAIKAN: Pindahkan ke sini
 
 func handle_input(delta):
 	var input_vector = Vector2.ZERO
@@ -55,9 +54,9 @@ func handle_input(delta):
 	
 	if input_vector.length() > 0:
 		var desired_velocity = input_vector.normalized() * max_speed
-		current_velocity = current_velocity.move_toward(desired_velocity, acceleration * delta)
+		velocity = velocity.move_toward(desired_velocity, acceleration * delta)  # ✅ GUNAKAN velocity, BUKAN current_velocity
 	else:
-		current_velocity = current_velocity.move_toward(Vector2.ZERO, acceleration * delta)
+		velocity = velocity.move_toward(Vector2.ZERO, acceleration * delta)  # ✅ GUNAKAN velocity
 
 func update_leader_velocity():
 	# Adjust speed based on squad members (sesuai teori)

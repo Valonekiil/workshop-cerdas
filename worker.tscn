@@ -79,6 +79,19 @@ clip_text = true
 
 [node name="Spawner" parent="." instance=ExtResource("3_mf4wl")]
 
+[node name="ProgressBar" type="ProgressBar" parent="."]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -31.0
+offset_top = -58.0
+offset_right = 31.0
+offset_bottom = -31.0
+grow_horizontal = 2
+max_value = 10.0
+step = 0.0
+show_percentage = false
+
 [connection signal="body_entered" from="Interaction" to="." method="_on_interaction_body_entered"]
 [connection signal="body_exited" from="Interaction" to="." method="_on_interaction_body_exited"]
 [connection signal="pressed" from="Button" to="." method="_on_button_pressed"]

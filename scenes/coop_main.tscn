@@ -30,6 +30,7 @@ scale = Vector2(0.5, 0.5)
 shape = SubResource("RectangleShape2D_hopk7")
 
 [node name="Sprite2D" type="Sprite2D" parent="Obstacle/Obstacle1"]
+self_modulate = Color(0.162066, 0.162066, 0.162066, 1)
 texture = ExtResource("4_rsc4x")
 
 [node name="Obstacle2" type="StaticBody2D" parent="Obstacle"]
@@ -40,6 +41,7 @@ scale = Vector2(0.5, 0.5)
 shape = SubResource("RectangleShape2D_hopk7")
 
 [node name="Sprite2D" type="Sprite2D" parent="Obstacle/Obstacle2"]
+self_modulate = Color(0.162066, 0.162066, 0.162066, 1)
 texture = ExtResource("4_rsc4x")
 
 [node name="Obstacle3" type="StaticBody2D" parent="Obstacle"]
@@ -50,6 +52,7 @@ scale = Vector2(0.5, 0.5)
 shape = SubResource("RectangleShape2D_hopk7")
 
 [node name="Sprite2D" type="Sprite2D" parent="Obstacle/Obstacle3"]
+self_modulate = Color(0.162066, 0.162066, 0.162066, 1)
 texture = ExtResource("4_rsc4x")
 
 [node name="Obstacle4" type="StaticBody2D" parent="Obstacle"]
@@ -60,6 +63,7 @@ scale = Vector2(0.5, 0.5)
 shape = SubResource("RectangleShape2D_hopk7")
 
 [node name="Sprite2D" type="Sprite2D" parent="Obstacle/Obstacle4"]
+self_modulate = Color(0.162066, 0.162066, 0.162066, 1)
 texture = ExtResource("4_rsc4x")
 
 [node name="Camera2D" type="Camera2D" parent="."]
