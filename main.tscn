@@ -72,7 +72,7 @@ idle_path = NodePath("../Path2D")
 path_follow = NodePath("../Path2D/PathFollow2D")
 
 [node name="chara" type="CharacterBody2D" parent="." node_paths=PackedStringArray("tilemap") groups=["Player"]]
-position = Vector2(76, 608)
+position = Vector2(1438, 854)
 script = ExtResource("3_kek77")
 tilemap = NodePath("../NavigationRegion2D/TileMap")
 

@@ -118,11 +118,9 @@ func find_resource_behavior() -> BehaviorStatus:
 	if is_searching:
 		search_duration += get_physics_process_delta_time()
 	
-	print("🔍 Search duration: ", search_duration, "s | Searching: ", is_searching)
 	
 	if is_searching and search_duration >= max_search_time:
 		update_state_text("Search Timeout - No Resources")
-		print("⏰ Search timeout after ", search_duration, " seconds")
 		
 		resources_collected = 1
 		current_behavior = "return_to_base"
@@ -270,10 +268,8 @@ func _on_button_pressed() -> void:
 			
 			
 			update_state_text("Commanded to Work!")
-			print("🎯 Work commanded - Starting search (Duration: %.1fs)" % work_duration)
 
 func on_work_duration_completed():
-	print("⏰ Work duration completed!")
 	work_commanded = false
 	
 	if current_behavior == "work_at_resource" or current_behavior == "move_to_resource" or current_behavior == "find_resource":

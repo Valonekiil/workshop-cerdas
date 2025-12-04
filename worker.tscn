@@ -80,6 +80,7 @@ clip_text = true
 [node name="Spawner" parent="." instance=ExtResource("3_mf4wl")]
 
 [node name="ProgressBar" type="ProgressBar" parent="."]
+visible = false
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
